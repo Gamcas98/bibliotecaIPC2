@@ -18,6 +18,11 @@ import java.io.ObjectInputStream;
  */
 public class ObjectRead {
 
+    
+    /*Esta clase contiene metodos que nos leen los archvivos binarios guardados
+    *son similares por que no me funciono el casteo
+    *juas juas juas
+    */
     public static Estudiante readEstudiante(int estudiante) throws IOException {
 
         File file = new File("DB/estudiantes/" + estudiante + ".est");
@@ -25,7 +30,6 @@ public class ObjectRead {
                 ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);) {
             return (Estudiante) inputStream.readObject();
         } catch (IOException e) {
-            e.printStackTrace();
             System.out.println("no tiene la forma de estudiante");
         } catch (ClassNotFoundException e) {
             System.out.println("El objeto no tiene la forma de un estudiante");
@@ -39,12 +43,10 @@ public class ObjectRead {
                 ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);) {
             return (Libro) inputStream.readObject();
         } catch (IOException e) {
-              e.printStackTrace();
             throw new IOException();
-          
+
         } catch (ClassNotFoundException e) {
             System.out.println("El objeto no tiene la forma de un usuario");
-            e.printStackTrace();
         }
         return null;
     }

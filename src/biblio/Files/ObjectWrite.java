@@ -16,6 +16,11 @@ import java.io.ObjectOutputStream;
  * @author Gamcas
  */
 public class ObjectWrite {
+    
+    /*Esta clase contiene metodos boolenos para persistir los archivos
+    *son similares por que no encontre otra forma de hacerlos
+    *osi osi
+    */
 
     public static boolean saveEstudent(Estudiante estudiante) {
 

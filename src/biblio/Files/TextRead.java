@@ -12,14 +12,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -82,11 +78,10 @@ public class TextRead extends Thread {
 
             }
             /*llamamos los metodos para persistir en archivos binarios las estructuras*/
-
             crearEstudiantes();
             crearLibros();
-            crearPrestamosP();
-
+            crearPrestamos();
+            /*Si la lectura se realizo con exito le informamos al usuario*/
             FormLecturaArchivo.areaTexto.append("Lectura finalizada " + " \n" + "\n");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -119,6 +114,7 @@ public class TextRead extends Thread {
              */
         } else if (tipo != null && (linea.contains("PRESTAMO")
                 || linea.equals("LIBRO") || linea.contains("ESTUDIANTE"))) {
+            
             FormLecturaArchivo.areaTexto.append("Estructura incorrecta\n\n");
             tipo = null;
             estudiante = null;
@@ -266,12 +262,18 @@ public class TextRead extends Thread {
     public void crearEstudiantes() {
 
         for (int i = 0; i < estudiantes.size(); i++) {
+          
             File file = new File("DB/estudiantes/" + estudiantes.get(i).getCarnet() + ".est");
+            
             if (!file.exists()) {
+                
                 if (estudiantes.get(i).getCarrera() > 0 && estudiantes.get(i).getCarrera() < 6) {
+                    
                     ObjectWrite.saveEstudent(estudiantes.get(i));
+                    
                     FormLecturaArchivo.areaTexto.append("Se creo el estudiante: "
                             + estudiantes.get(i).getNombre().replace("\"", "").trim() + " \n" + "\n");
+                    
                 } else if (estudiantes.get(i).getNombre() != null) {
                     FormLecturaArchivo.areaTexto.append("El estudiante: " + estudiantes.get(i).getNombre().replace("\"", "").trim()
                             + ", no cumple con la estructura" + " \n" + "\n");
@@ -288,13 +290,25 @@ public class TextRead extends Thread {
 
     }
 
-    private void crearPrestamosP() {
+    /*Metodo culero*/
+ /*
+    *Metodo se tratara de explicar linea por linea de codigo
+     */
+    private void crearPrestamos() {
+
+        //recorremos todos los prestamos que podrian cumplir para con la estructura
         for (int i = 0; i < prestamos.size(); i++) {
 
+            /*Estos objetos nos sirven para recorrer las carpeta y archivos de los prestamos*/
             File file = new File("DB/prestamos/" + prestamos.get(i).getCarnetEstudiante());
             File fil = new File("DB/prestamos/" + prestamos.get(i).getCarnetEstudiante()
                     + "/" + prestamos.get(i).getCodigoLibro() + "-" + 1 + ".pres");
 
+            /*si la carpeta no existe y si el archivo no existe
+            *y si el objeto prestamo recibio la fecha correctamente
+            *verificamos que se pueda prestar el libro con el metodo prestamo libro
+            *si se puede prestar el libro persistimos el objeto prestamo en un archivo binario
+             */
             if (!file.exists()) {
                 if (!fil.exists()) {
                     if (prestamos.get(i).getFechaPrestamo() != null) {
@@ -304,11 +318,12 @@ public class TextRead extends Thread {
 
                             ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), 1);
-
+                            /*fin de la explicacion*/
                             try {
-                                FormLecturaArchivo.areaTexto.append("El estudiante : "
+                                //si el objeto fue guardado le informamos al usuario
+                                FormLecturaArchivo.areaTexto.append("El estudiante: "
                                         + ObjectRead.readEstudiante(prestamos.get(i).getCarnetEstudiante())
-                                                .getNombre() + "tiene en su poder el libro: "
+                                                .getNombre() + " tiene en su poder el libro: "
                                         + ObjectRead.readLibro(prestamos.get(i).getCodigoLibro())
                                                 .getTitulo()
                                         + "\n\n");
@@ -321,6 +336,12 @@ public class TextRead extends Thread {
                         }
                     }
                 }
+
+                /*Aqui verificamos si x estudiante ya posea un prestamos
+                *si es asi quiere decir que ya existe una carpeta con su nombre
+                *y luego se verifica que no exista un prestamo con el nombre del 
+                *libro que se esta prestando
+                 */
             } else {
                 if (!fil.exists()) {
                     if (prestamos.get(i).getFechaPrestamo() != null) {
@@ -330,11 +351,13 @@ public class TextRead extends Thread {
 
                             ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), 1);
-
+                            /*si el libro se podia prestar podemos persistir el prestamo
+                            *y le informamos al usuario
+                             */
                             try {
                                 FormLecturaArchivo.areaTexto.append("El estudiante : "
                                         + ObjectRead.readEstudiante(prestamos.get(i).getCarnetEstudiante())
-                                                .getNombre() + "tiene en su poder el libro: "
+                                                .getNombre() + " tiene en su poder el libro: "
                                         + ObjectRead.readLibro(prestamos.get(i).getCodigoLibro())
                                                 .getTitulo()
                                         + "\n\n");
@@ -342,14 +365,47 @@ public class TextRead extends Thread {
                                 FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
                             }
 
+                        } else {
+                            FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
+
                         }
-                    }//fin if para persistir
+                    } else {
+                        FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
+
+                    }
+
+                    /*SI la carpeta con el carnet del estudiante ya existe 
+                    *y tambien ya existe un archivo con el codigo de libro que se prestara
+                    *se persistira un archivo sumandole 1 al identificador del archivo prestamo
+                     */
                 } else {
                     if (prestamos.get(i).getFechaPrestamo() != null) {
 
                         if (Verificaciones.prestamoLibro(prestamos.get(i).getCodigoLibro(),
                                 prestamos.get(i).getCarnetEstudiante())) {
 
+                            //Si el libro se puede prestar hacemos lo siguiebte
+                           
+                            /*
+                            *PD: el prestamo se guarda dentro de una carpeta que contiene el carnet
+                            *PD2:el archivo que se guarda dentro de la carpeta tiene el formato
+                            *"101-BBB-1"
+                            *el ultimo numero lo conoceremos como identificador
+                             */
+ 
+                            
+                            /*Creamos un vector de String de 3 posiciones con el metodo split
+                            *al codigo del libro que se prestara
+                            *creamos un string que almacenara la pos 0 y 1 separada por un guion
+                            *creamos un arraylist de string para almacenar los codigos de los libros
+                            *sin el numero que los identifica
+                            *luego recorremos la carpeta del estudiante para ver cuantos 
+                            *libros de x tipo tiene actualmente
+                            *al finalizar el ciclo agregamos al array los libros que ya tenia
+                            *obtenemo el ultimo elemento del array y obtenemos su identificador
+                            *y persistimos el prestamo sumandole 1 al identificador 
+                            *para llevar un control del total de libros que presto el estudiante
+                             */
                             String codigo[] = prestamos.get(i).getCodigoLibro().split("-");
                             String unir = codigo[0] + "-" + codigo[1];
                             ArrayList<String> codigos = new ArrayList<>();
@@ -369,10 +425,11 @@ public class TextRead extends Thread {
                             ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), Integer.valueOf(numero[2]) + 1);
 
+                            /*Si todo se cumplio le informamos al usuario*/
                             try {
                                 FormLecturaArchivo.areaTexto.append("El estudiante : "
                                         + ObjectRead.readEstudiante(prestamos.get(i).getCarnetEstudiante())
-                                                .getNombre() + "tiene en su poder el libro: "
+                                                .getNombre() + " tiene en su poder el libro: "
                                         + ObjectRead.readLibro(prestamos.get(i).getCodigoLibro())
                                                 .getTitulo()
                                         + "\n\n");
@@ -380,13 +437,17 @@ public class TextRead extends Thread {
                                 FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
                             }
 
+                        } else {
+                            FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
+
                         }
 
+                    } else {
+                        FormLecturaArchivo.areaTexto.append("Ocurrio un error en un prestamo\n\n");
                     }
                 }
             }
         }//ciclo del array de prestamos
-        
 
     }//metodo crear prestamo
 }

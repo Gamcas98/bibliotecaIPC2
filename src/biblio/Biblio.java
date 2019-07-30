@@ -7,7 +7,6 @@ package biblio;
 
 import biblio.ui.*;
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,19 +24,25 @@ public class Biblio {
 
     }
 
+    /*Metodo iniciComponets
+    *crea todas las carpetas donde se guardaran los archivos binarios
+    *verifica si ya existe algun archivo o carpeta
+    *si no existe ninguno nos pide que ingresemos datos mediante la lectura del archivo
+     */
     public static void initComponents() {
 
+        File db = new File("DB");
         File estudiante = new File("DB\\estudiantes");
         File prestamo = new File("DB\\prestamos");
         File libro = new File("DB\\libros");
         String[] listadoEst = estudiante.list();
         String[] listadoLibro = libro.list();
 
+        if(!db.exists()){
+            db.mkdir();
+        }
         if (!estudiante.exists()) {
             estudiante.mkdir();
-
-        } else {
-
         }
         if (!prestamo.exists()) {
             prestamo.mkdir();
@@ -46,6 +51,7 @@ public class Biblio {
             libro.mkdir();
         }
 
+        //verificamos si ya existe algun archivo en la base de datos
         if ((listadoEst == null || listadoEst.length == 0)
                 && (listadoLibro == null || listadoLibro.length == 0)) {
             JOptionPane.showMessageDialog(null, "OH!, al parecer la base de datos esta vacia.\n"

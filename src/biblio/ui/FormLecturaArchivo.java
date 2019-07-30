@@ -159,6 +159,7 @@ public class FormLecturaArchivo extends javax.swing.JFrame {
             path = selectedFile.getAbsolutePath();
             btnAnalizar.setVisible(true);
             btnCargar.setVisible(false);
+            
             areaTexto.append("Se Analizara el archivo: " + path + "\n" + "\n");
 
         }

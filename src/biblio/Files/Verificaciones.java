@@ -16,7 +16,9 @@ import java.io.IOException;
  */
 public class Verificaciones {
 
+    //Metodo que valida que el codigo del libro cumpla con la estructura correcta
     public static boolean verficarCodigoLibro(String codigo) throws NumberFormatException {
+        
         String[] cod = codigo.split("-");
 
         if ((Integer.valueOf(cod[0]) >= 100 && Integer.valueOf(cod[0]) <= 1000)
@@ -27,6 +29,10 @@ public class Verificaciones {
         return false;
     }
 
+    /*Recorre la carpeta donde persisten los estudiantes
+    *si encuentra un carnet igual al que se le envia
+    *devuelve true indicando que el estudiante existe
+    */
     public static boolean verificarExistenciaEstudiante(int carnet) {
         File file = new File("DB\\estudiantes");
 
@@ -44,10 +50,14 @@ public class Verificaciones {
             }
 
         }
-        // System.out.println(b);
+       
         return b;
     }
 
+    /*Recorre la carpeta de libros 
+    *si encuentra un codigo igual al que se le envia 
+    *devuelve true indicando asi la existencia de dicho libro
+    */
     public static boolean verificarExistenciaLibro(String codigo) {
         File file = new File("DB\\libros");
 
@@ -64,11 +74,14 @@ public class Verificaciones {
             }
 
         }
-        //  System.out.println(b);
+       
         return b;
 
     }
 
+    /*Verifca que un libro tenga copias disponibles para realizar un prestamo
+    *esto nos sirve en la interfaz grafica
+    */
     public static boolean verficarCantidadLibro(String codigo) throws IOException {
 
         boolean b = false;
@@ -80,6 +93,12 @@ public class Verificaciones {
         return b;
     }
 
+    
+    /*Metodo que verifica si existe el libro a prestar
+    *si existe verfica que exista el estudiante
+    *si existe verifica que el estudiante no tenga mas de 3 libros
+    *si todo se cumple devuelve true y modifica el atributo de librosprestados del estudiante
+    */
     public static boolean prestamoLibro(String codigo, int carnet) {
 
         Estudiante est = new Estudiante();
@@ -98,7 +117,6 @@ public class Verificaciones {
                         ObjectWrite.saveEstudent(est);
                         boolean aux = true;
                         b = aux;
-                        System.out.println(ObjectRead.readEstudiante(carnet).getLibrosPrestados());
                     }
                 }
 
@@ -109,6 +127,13 @@ public class Verificaciones {
         return b;
     }
 
+    
+    /*Verifica que exista el libro
+    *si el libro existe y el estudiante tambien existe
+    *y el libro tiene copias disponibles
+    *retorna true y modifica los atributos del libro y del estudiante
+    *le suma uno a la cantidad de libros que posee el estudiante y le resta a la cant de libros disponibles
+    */
     public static boolean prestamoLibroI(String codigo, int carnet) {
 
         Estudiante est = new Estudiante();
