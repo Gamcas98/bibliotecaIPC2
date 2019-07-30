@@ -1,0 +1,66 @@
+[1mdiff --git a/DB/estudiantes/200812345.est b/DB/estudiantes/200812345.est[m
+[1mindex c6691a9..8214082 100644[m
+Binary files a/DB/estudiantes/200812345.est and b/DB/estudiantes/200812345.est differ
+[1mdiff --git a/DB/estudiantes/201312345.est b/DB/estudiantes/201312345.est[m
+[1mindex a52fd5d..0aa3d4e 100644[m
+Binary files a/DB/estudiantes/201312345.est and b/DB/estudiantes/201312345.est differ
+[1mdiff --git a/build/classes/biblio/Biblio.class b/build/classes/biblio/Biblio.class[m
+[1mindex 58b0d61..9253eda 100644[m
+Binary files a/build/classes/biblio/Biblio.class and b/build/classes/biblio/Biblio.class differ
+[1mdiff --git a/build/classes/biblio/Files/ObjectWrite.class b/build/classes/biblio/Files/ObjectWrite.class[m
+[1mindex 9b5f646..a45dd03 100644[m
+Binary files a/build/classes/biblio/Files/ObjectWrite.class and b/build/classes/biblio/Files/ObjectWrite.class differ
+[1mdiff --git a/src/biblio/Biblio.java b/src/biblio/Biblio.java[m
+[1mindex 44020f8..f939acf 100644[m
+[1m--- a/src/biblio/Biblio.java[m
+[1m+++ b/src/biblio/Biblio.java[m
+[36m@@ -5,8 +5,12 @@[m
+  */[m
+ package biblio;[m
+ [m
+[32m+[m[32mimport biblio.Files.ObjectRead;[m[41m[m
+ import biblio.ui.FormLecturaArchivo;[m
+ import java.io.File;[m
+[32m+[m[32mimport java.io.IOException;[m[41m[m
+[32m+[m[32mimport java.util.logging.Level;[m[41m[m
+[32m+[m[32mimport java.util.logging.Logger;[m[41m[m
+ [m
+ [m
+ /**[m
+[36m@@ -21,6 +25,12 @@[m [mpublic class Biblio {[m
+     public static void main(String[] args) {[m
+        [m
+             initComponents();  [m
+[32m+[m[41m            [m
+[32m+[m[32m        try {[m[41m[m
+[32m+[m[32m            System.out.println(ObjectRead.readEstudiante(200812345));[m[41m[m
+[32m+[m[32m        } catch (IOException ex) {[m[41m[m
+[32m+[m[32m            Logger.getLogger(Biblio.class.getName()).log(Level.SEVERE, null, ex);[m[41m[m
+[32m+[m[32m        }[m[41m[m
+  [m
+     }[m
+     [m
+[1mdiff --git a/src/biblio/Files/ObjectWrite.java b/src/biblio/Files/ObjectWrite.java[m
+[1mindex e33a8f3..3afa3e2 100644[m
+[1m--- a/src/biblio/Files/ObjectWrite.java[m
+[1m+++ b/src/biblio/Files/ObjectWrite.java[m
+[36m@@ -32,19 +32,6 @@[m [mpublic class ObjectWrite {[m
+         return true;[m
+     }[m
+ [m
+[31m-    public static boolean saveLibro1(Libro libro) {[m
+[31m-[m
+[31m-        File file = new File("DB/libros/" + libro.getCodigo() + ".lb");[m
+[31m-[m
+[31m-        try (FileOutputStream fileOutputStream = new FileOutputStream(file);[m
+[31m-                ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);) {[m
+[31m-            outputStream.writeObject(libro);[m
+[31m-        } catch (IOException e) {[m
+[31m-            e.printStackTrace();[m
+[31m-            System.out.println("Error de conexion con el archivo");[m
+[31m-        }[m
+[31m-        return true;[m
+[31m-    }[m
+ [m
+     public static boolean saveLibro(Libro libro, int cantidad) {[m
+ [m

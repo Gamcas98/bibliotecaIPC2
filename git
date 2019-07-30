@@ -1,0 +1,35 @@
+[33mcommit 029b6376ac85202e0378b9a9d3ecc66a15c17dff[m[33m ([m[1;36mHEAD -> [m[1;32mfiles[m[33m, [m[1;31morigin/files[m[33m)[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Sun Jul 28 14:52:54 2019 -0600
+
+    tratando de agregar prestamos :c
+
+[33mcommit 9544deec564c41722a1b3f5b585e82f71d6bca12[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Fri Jul 26 18:28:33 2019 -0600
+
+    agregada lectura de estructura libro en carga masiva
+
+[33mcommit ee5fd262f6d26f3c3faac6b03d4fae9977651c68[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Fri Jul 26 14:20:07 2019 -0600
+
+    Estructura de estudiantes leida en carga de archivo
+
+[33mcommit f1a1181ebef46bef9006aa5e908b5782ac659e4f[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Thu Jul 25 23:42:37 2019 -0600
+
+    creando rama y objeto para los archivos
+
+[33mcommit 4c806f63db98615f80a77e705c72c82545928ba2[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Thu Jul 25 23:36:10 2019 -0600
+
+    Agregando modelos para la logica del sistema
+
+[33mcommit d554d2d4d70b30f912a438a14f91f0f54b417253[m
+Author: Gamcas <josesiitocasti@gmail.com>
+Date:   Thu Jul 25 23:24:37 2019 -0600
+
+    Creando Proyecto
