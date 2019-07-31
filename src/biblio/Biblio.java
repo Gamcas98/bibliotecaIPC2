@@ -38,7 +38,7 @@ public class Biblio {
         String[] listadoEst = estudiante.list();
         String[] listadoLibro = libro.list();
 
-        if(!db.exists()){
+        if (!db.exists()) {
             db.mkdir();
         }
         if (!estudiante.exists()) {
@@ -61,10 +61,9 @@ public class Biblio {
             System.out.println("No hay elementos dentro de la carpeta actual");
 
         } else {
-            FormLecturaArchivo f = new FormLecturaArchivo();
+
+            FormPrincipal f = new FormPrincipal();
             f.setVisible(true);
-//            FormPrincipal f = new FormPrincipal();
-//            f.setVisible(true);
         }
 
     }
