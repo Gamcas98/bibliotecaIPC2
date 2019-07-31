@@ -7,9 +7,7 @@ package biblio.ui;
 
 import AppPackage.AnimationClass;
 import biblio.movimiento.AnimationPanel;
-import biblio.ui.reportes.FormLibroMorosos;
-import biblio.ui.reportes.FormPrestamoLibros;
-import javafx.animation.Animation;
+import biblio.ui.reportes.*;
 
 /**
  *
@@ -375,6 +373,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         JPMenu.add(r3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 510, -1, -1));
 
         r4.setText("<html>*Prestamos hechos por estudiante");
+        r4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r4MouseClicked(evt);
+            }
+        });
         JPMenu.add(r4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 530, 120, -1));
 
         r6.setText("<html>*Libros prestados por carrera");
@@ -478,10 +481,16 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_r1MouseClicked
 
     private void r2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r2MouseClicked
-       FormLibroMorosos f = new FormLibroMorosos();
+        FormLibroMorosos f = new FormLibroMorosos();
         this.dispose();
         f.setVisible(true);
     }//GEN-LAST:event_r2MouseClicked
+
+    private void r4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r4MouseClicked
+        FormPrestamosEstudiantes f = new FormPrestamosEstudiantes();
+        this.dispose();
+        f.setVisible(true);
+    }//GEN-LAST:event_r4MouseClicked
 
     private void moverDerecha() {
         AnimationClass a = new AnimationClass();
