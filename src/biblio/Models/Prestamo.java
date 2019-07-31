@@ -17,7 +17,6 @@ public class Prestamo implements Serializable {
     private String codigoLibro;
     private int carnetEstudiante;
     private LocalDate fechaPrestamo;
-    private String estado;
     private LocalDate fechaDevolucion;
     private int cuotaNormal;
     private int cuotaMora;
@@ -46,17 +45,11 @@ public class Prestamo implements Serializable {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public String getEstado() {
-        return estado;
-    }
 
     public LocalDate getFechaDevolucion() {
         return fechaDevolucion;

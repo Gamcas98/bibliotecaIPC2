@@ -5,8 +5,10 @@
  */
 package biblio.ui;
 
+import AppPackage.AnimationClass;
 import biblio.movimiento.AnimationPanel;
-import javafx.animation.Animation;
+import biblio.ui.reportes.*;
+
 /**
  *
  * @author Gamcas
@@ -19,7 +21,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     public FormPrincipal() {
         initComponents();
         this.setResizable(false);
-        this.setBounds(0, 0, 1000, 700);
+        this.setBounds(0, 0, 1000, 720);
         this.setLocationRelativeTo(null);
     }
 
@@ -85,13 +87,17 @@ public class FormPrincipal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        btnRegistrarPres1 = new javax.swing.JLabel();
         JPInfo = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        r1 = new javax.swing.JLabel();
+        r4 = new javax.swing.JLabel();
+        r2 = new javax.swing.JLabel();
+        r6 = new javax.swing.JLabel();
+        r3 = new javax.swing.JLabel();
+        r5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,7 +110,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel5.setText("Seleccione a Estudiante:");
         JPRegistrarPres.add(jLabel5);
-        jLabel5.setBounds(30, 40, 150, 14);
+        jLabel5.setBounds(30, 40, 150, 16);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,7 +130,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel10.setText("Seleccione el Libro:");
         JPRegistrarPres.add(jLabel10);
-        jLabel10.setBounds(480, 40, 150, 14);
+        jLabel10.setBounds(480, 40, 150, 16);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,7 +150,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Registrar fecha actual:");
         JPRegistrarPres.add(jLabel11);
-        jLabel11.setBounds(30, 200, 140, 14);
+        jLabel11.setBounds(30, 200, 140, 16);
 
         jButton3.setText("Fecha actual");
         JPRegistrarPres.add(jButton3);
@@ -168,7 +174,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel13.setText("Nombre del Libro:");
         JPRegistrarLib.add(jLabel13);
-        jLabel13.setBounds(30, 70, 110, 14);
+        jLabel13.setBounds(30, 70, 110, 16);
 
         JTRegistrarNomLib.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,11 +186,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel12.setText("Codigo del libro:");
         JPRegistrarLib.add(jLabel12);
-        jLabel12.setBounds(400, 70, 100, 14);
+        jLabel12.setBounds(400, 70, 100, 16);
 
         jLabel14.setText("Ejem. AAA-000");
         JPRegistrarLib.add(jLabel14);
-        jLabel14.setBounds(610, 70, 100, 14);
+        jLabel14.setBounds(610, 70, 100, 16);
 
         jTextField1.setText("jTextField1");
         JPRegistrarLib.add(jTextField1);
@@ -192,11 +198,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel15.setText("Autor del libro:");
         JPRegistrarLib.add(jLabel15);
-        jLabel15.setBounds(30, 180, 110, 14);
+        jLabel15.setBounds(30, 180, 110, 16);
 
         jLabel16.setText("Cantidad de copias:");
         JPRegistrarLib.add(jLabel16);
-        jLabel16.setBounds(400, 180, 130, 14);
+        jLabel16.setBounds(400, 180, 130, 16);
 
         JTAutorLib.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,15 +216,15 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jButton1.setText("Fecha actual");
         JPRegistrarLib.add(jButton1);
-        jButton1.setBounds(30, 330, 110, 23);
+        jButton1.setBounds(30, 330, 110, 32);
 
         jLabel17.setText("Registar fecha actual:");
         JPRegistrarLib.add(jLabel17);
-        jLabel17.setBounds(30, 290, 120, 14);
+        jLabel17.setBounds(30, 290, 120, 16);
 
         jButton2.setText("Registrar");
         JPRegistrarLib.add(jButton2);
-        jButton2.setBounds(290, 390, 120, 23);
+        jButton2.setBounds(290, 390, 120, 32);
 
         JPConteiner.add(JPRegistrarLib);
         JPRegistrarLib.setBounds(1000, 60, 880, 640);
@@ -229,15 +235,15 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel19.setText("Nombre del Estudiante:");
         JPRegistrarEstu.add(jLabel19);
-        jLabel19.setBounds(70, 50, 220, 14);
+        jLabel19.setBounds(70, 50, 220, 16);
 
         jLabel20.setText("Carnet:");
         JPRegistrarEstu.add(jLabel20);
-        jLabel20.setBounds(550, 50, 70, 14);
+        jLabel20.setBounds(550, 50, 70, 16);
 
         jLabel21.setText("Ejem. 2018*****");
         JPRegistrarEstu.add(jLabel21);
-        jLabel21.setBounds(660, 50, 110, 14);
+        jLabel21.setBounds(660, 50, 110, 16);
 
         JTNombreEstu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,13 +263,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Codigo de carrera:");
         JPRegistrarEstu.add(jLabel22);
-        jLabel22.setBounds(70, 160, 140, 14);
+        jLabel22.setBounds(70, 160, 140, 16);
         JPRegistrarEstu.add(JTCodCarrera);
         JTCodCarrera.setBounds(80, 190, 70, 30);
 
         jLabel23.setText("Fecha de Nacimiento:");
         JPRegistrarEstu.add(jLabel23);
-        jLabel23.setBounds(380, 160, 140, 14);
+        jLabel23.setBounds(380, 160, 140, 16);
 
         jTextField2.setText("Año/Mes/Dia");
         JPRegistrarEstu.add(jTextField2);
@@ -297,10 +303,10 @@ public class FormPrincipal extends javax.swing.JFrame {
                 btnRegistrarPresMouseClicked(evt);
             }
         });
-        JPMenu.add(btnRegistrarPres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 60, -1));
+        JPMenu.add(btnRegistrarPres, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 60, -1));
 
-        jLabel2.setText("Registrar Prestamo");
-        JPMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 77, -1, -1));
+        jLabel2.setText("Devolver libro");
+        JPMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         btnRegistrarLib.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/12.png"))); // NOI18N
         btnRegistrarLib.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -308,10 +314,10 @@ public class FormPrincipal extends javax.swing.JFrame {
                 btnRegistrarLibMouseClicked(evt);
             }
         });
-        JPMenu.add(btnRegistrarLib, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 102, -1, -1));
+        JPMenu.add(btnRegistrarLib, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         jLabel3.setText("Registrar libro");
-        JPMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 163, -1, -1));
+        JPMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         btnRegistrarEstudiante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/estudiante.png"))); // NOI18N
         btnRegistrarEstudiante.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,41 +325,48 @@ public class FormPrincipal extends javax.swing.JFrame {
                 btnRegistrarEstudianteMouseClicked(evt);
             }
         });
-        JPMenu.add(btnRegistrarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 188, -1, -1));
+        JPMenu.add(btnRegistrarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         jLabel1.setText("Registar estudiante");
-        JPMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        JPMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 365, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/arch.png"))); // NOI18N
-        JPMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 70, 60));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        JPMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 70, 60));
 
         jLabel6.setText("Leer archivo");
-        JPMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        JPMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/reportes.png"))); // NOI18N
-        JPMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        JPMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, -1, -1));
 
         jLabel8.setText("Reportes");
-        JPMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 70, -1));
-        JPMenu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 130, -1));
-        JPMenu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 130, -1));
-        JPMenu.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 130, -1));
-        JPMenu.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, -1));
+        JPMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 70, -1));
+        JPMenu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 130, -1));
+        JPMenu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 130, -1));
+        JPMenu.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 130, -1));
+        JPMenu.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 130, -1));
+        JPMenu.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 130, -1));
 
-        jLabel24.setText("R 1");
-        JPMenu.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, -1, -1));
+        jLabel24.setText("Registrar Prestamo");
+        JPMenu.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 70, -1, -1));
 
-        jLabel25.setText("R 2");
-        JPMenu.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, -1, -1));
-
-        jLabel26.setText("R 3");
-        JPMenu.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
-
-        jLabel27.setText("R 4");
-        JPMenu.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
-
-        jLabel28.setText("R 5");
-        JPMenu.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, -1, -1));
+        btnRegistrarPres1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/registrar.png"))); // NOI18N
+        btnRegistrarPres1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarPres1MouseClicked(evt);
+            }
+        });
+        JPMenu.add(btnRegistrarPres1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 60, -1));
 
         JPConteiner.add(JPMenu);
         JPMenu.setBounds(0, 60, 130, 640);
@@ -364,6 +377,63 @@ public class FormPrincipal extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/portada.jpg"))); // NOI18N
         JPInfo.add(jLabel9);
         jLabel9.setBounds(110, 50, 600, 90);
+
+        r1.setBackground(new java.awt.Color(153, 204, 255));
+        r1.setForeground(new java.awt.Color(153, 153, 255));
+        r1.setText("<html>Prestamos a Entregar hoy");
+        r1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        r1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r1MouseClicked(evt);
+            }
+        });
+        JPInfo.add(r1);
+        r1.setBounds(-200, 500, 90, 50);
+
+        r4.setBackground(new java.awt.Color(153, 204, 255));
+        r4.setForeground(new java.awt.Color(153, 153, 255));
+        r4.setText("<Html>Prestamos hechos por estudiante");
+        r4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        r4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r4MouseClicked(evt);
+            }
+        });
+        JPInfo.add(r4);
+        r4.setBounds(-200, 570, 90, 50);
+
+        r2.setBackground(new java.awt.Color(153, 204, 255));
+        r2.setForeground(new java.awt.Color(153, 153, 255));
+        r2.setText("<Html>Prestamos en mora");
+        r2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        r2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r2MouseClicked(evt);
+            }
+        });
+        JPInfo.add(r2);
+        r2.setBounds(-200, 500, 90, 50);
+
+        r6.setBackground(new java.awt.Color(153, 204, 255));
+        r6.setForeground(new java.awt.Color(153, 153, 255));
+        r6.setText("<Html>Libros prestados por carrera");
+        r6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        JPInfo.add(r6);
+        r6.setBounds(-200, 570, 90, 50);
+
+        r3.setBackground(new java.awt.Color(153, 204, 255));
+        r3.setForeground(new java.awt.Color(153, 153, 255));
+        r3.setText("<Html>Recaudacion de dinero");
+        r3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        JPInfo.add(r3);
+        r3.setBounds(-200, 500, 90, 50);
+
+        r5.setBackground(new java.awt.Color(153, 204, 255));
+        r5.setForeground(new java.awt.Color(153, 153, 255));
+        r5.setText("<Html>Libros actualmente prestados");
+        r5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        JPInfo.add(r5);
+        r5.setBounds(-200, 570, 90, 50);
 
         JPConteiner.add(JPInfo);
         JPInfo.setBounds(130, 60, 870, 640);
@@ -387,18 +457,18 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarPresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPresMouseClicked
-        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarEstu);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarLib);
-        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarLib);
+        AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarPres);
         btnTitulo.setText("Registrar Prestamo");
     }//GEN-LAST:event_btnRegistrarPresMouseClicked
 
     private void btnRegistrarLibMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarLibMouseClicked
-        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarPres);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarEstu);
-        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarLib); 
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarLib);
         btnTitulo.setText("Registrar Nuevo Libro");
     }//GEN-LAST:event_btnRegistrarLibMouseClicked
 
@@ -411,12 +481,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JTAutorLibActionPerformed
 
     private void btnRegistrarEstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEstudianteMouseClicked
-        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarPres);
-        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarLib); 
-        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarEstu); 
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarLib);
+        AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarEstu);
         btnTitulo.setText("Registrar Nuevo Estudiante");
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarEstudianteMouseClicked
@@ -428,6 +497,63 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void JTCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTCarnetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTCarnetActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        FormLecturaArchivo f = new FormLecturaArchivo();
+        this.dispose();
+        f.setVisible(true);
+
+
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+
+        moverDerecha();
+        moverIzq();
+
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void btnRegistrarPres1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPres1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarPres1MouseClicked
+
+    private void r1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r1MouseClicked
+        FormPrestamoLibros f = new FormPrestamoLibros();
+        this.dispose();
+        f.setVisible(true);
+    }//GEN-LAST:event_r1MouseClicked
+
+    private void r2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r2MouseClicked
+        FormLibroMorosos f = new FormLibroMorosos();
+        this.dispose();
+        f.setVisible(true);
+    }//GEN-LAST:event_r2MouseClicked
+
+    private void r4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r4MouseClicked
+        FormPrestamosEstudiantes f = new FormPrestamosEstudiantes();
+        this.dispose();
+        f.setVisible(true);
+    }//GEN-LAST:event_r4MouseClicked
+
+    private void moverDerecha() {
+        AnimationClass a = new AnimationClass();
+        a.jLabelXRight(-200, 40, 5, 5, r1);
+        a.jLabelXRight(-200, 180, 5, 5, r2);
+        a.jLabelXRight(-200, 300, 5, 5, r3);
+        a.jLabelXRight(-200, 40, 5, 5, r4);
+        a.jLabelXRight(-200, 180, 5, 5, r5);
+        a.jLabelXRight(-200, 300, 5, 5, r6);
+    }
+
+    private void moverIzq() {
+        AnimationClass a = new AnimationClass();
+        a.jLabelXLeft(40, -200, 5, 5, r1);
+        a.jLabelXLeft(180, -200, 5, 5, r2);
+        a.jLabelXLeft(300, -200, 5, 5, r3);
+        a.jLabelXLeft(40, -200, 5, 5, r4);
+        a.jLabelXLeft(180, -200, 5, 5, r5);
+        a.jLabelXLeft(300, -200, 5, 5, r6);
+    }
 
     /**
      * @param args the command line arguments
@@ -461,7 +587,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             @Override
             public void run() {
                 new FormPrincipal().setVisible(true);
-                
+
             }
         });
     }
@@ -483,6 +609,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnRegistrarEstudiante;
     private javax.swing.JLabel btnRegistrarLib;
     private javax.swing.JLabel btnRegistrarPres;
+    private javax.swing.JLabel btnRegistrarPres1;
     private javax.swing.JLabel btnTitulo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -506,10 +633,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -523,9 +646,16 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel r1;
+    private javax.swing.JLabel r2;
+    private javax.swing.JLabel r3;
+    private javax.swing.JLabel r4;
+    private javax.swing.JLabel r5;
+    private javax.swing.JLabel r6;
     // End of variables declaration//GEN-END:variables
 }

@@ -316,7 +316,7 @@ public class TextRead extends Thread {
                         if (Verificaciones.prestamoLibro(prestamos.get(i).getCodigoLibro(),
                                 prestamos.get(i).getCarnetEstudiante())) {
 
-                            ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
+                            ObjectWrite.savePrestamo(prestamos.get(i), prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), 1);
                             /*fin de la explicacion*/
                             try {
@@ -349,7 +349,7 @@ public class TextRead extends Thread {
                         if (Verificaciones.prestamoLibro(prestamos.get(i).getCodigoLibro(),
                                 prestamos.get(i).getCarnetEstudiante())) {
 
-                            ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
+                            ObjectWrite.savePrestamo(prestamos.get(i), prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), 1);
                             /*si el libro se podia prestar podemos persistir el prestamo
                             *y le informamos al usuario
@@ -422,7 +422,7 @@ public class TextRead extends Thread {
                             }
                             String numero[] = codigos.get(codigos.size() - 1).split("-");
 
-                            ObjectWrite.savePrestamo(prestamo, prestamos.get(i).getCarnetEstudiante(),
+                            ObjectWrite.savePrestamo(prestamos.get(i), prestamos.get(i).getCarnetEstudiante(),
                                     prestamos.get(i).getCodigoLibro(), Integer.valueOf(numero[2]) + 1);
 
                             /*Si todo se cumplio le informamos al usuario*/
