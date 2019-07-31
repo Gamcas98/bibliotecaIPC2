@@ -7,6 +7,7 @@ package biblio.ui;
 
 import AppPackage.AnimationClass;
 import biblio.movimiento.AnimationPanel;
+import biblio.ui.reportes.FormLibroMorosos;
 import biblio.ui.reportes.FormPrestamoLibros;
 import javafx.animation.Animation;
 
@@ -363,6 +364,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         JPMenu.add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 470, -1, -1));
 
         r2.setText("*Prestamos con mora");
+        r2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r2MouseClicked(evt);
+            }
+        });
         JPMenu.add(r2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 490, -1, -1));
 
         r3.setText("*Dinero Recaudado");
@@ -470,6 +476,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.dispose();
         f.setVisible(true);
     }//GEN-LAST:event_r1MouseClicked
+
+    private void r2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r2MouseClicked
+       FormLibroMorosos f = new FormLibroMorosos();
+        this.dispose();
+        f.setVisible(true);
+    }//GEN-LAST:event_r2MouseClicked
 
     private void moverDerecha() {
         AnimationClass a = new AnimationClass();
