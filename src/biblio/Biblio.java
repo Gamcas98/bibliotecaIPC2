@@ -5,8 +5,17 @@
  */
 package biblio;
 
+import biblio.Files.ObjectRead;
+import biblio.Files.ObjectWrite;
+import biblio.Models.Prestamo;
 import biblio.ui.*;
 import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +29,9 @@ public class Biblio {
      */
     public static void main(String[] args) {
 
-        initComponents();
+       
+            initComponents();
+
 
     }
 

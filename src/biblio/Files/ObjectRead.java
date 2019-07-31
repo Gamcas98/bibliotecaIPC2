@@ -50,10 +50,13 @@ public class ObjectRead {
         }
         return null;
     }
+    
+    
 
     public static Prestamo readPrestamo(int carnet, String codigo) throws IOException {
 
-        File fil = new File("DB/prestamos/" + carnet + "/" + codigo + "-" + 1 + ".pres");
+        File fil = new File("DB/prestamos/"+carnet+"/"+codigo+".pres");
+        
                 try (FileInputStream fileInputStream = new FileInputStream(fil);
                 ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);) {
             return (Prestamo) inputStream.readObject();

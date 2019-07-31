@@ -5,7 +5,16 @@
  */
 package biblio.ui.reportes;
 
+import biblio.Files.ObjectRead;
+import biblio.Models.Prestamo;
+import biblio.ui.FormPrincipal;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,9 +23,7 @@ import java.time.LocalDate;
 public class FormPrestamoLibros extends javax.swing.JFrame {
 
     private static LocalDate todayDate = LocalDate.now();
-    private static LocalDate minimumDate;
-    
-    private static LocalDate maximumDate;
+    private static DefaultTableModel model;
 
     /**
      * Creates new form FormPrestamoLibros
@@ -26,6 +33,8 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
         this.contenedor.setSize(650, 550);
         this.setSize(660, 580);
         this.setLocationRelativeTo(null);
+        model = (DefaultTableModel) jTable1.getModel();
+        llenarTabla();
 
     }
 
@@ -45,7 +54,7 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -74,10 +83,7 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
         jTable1.setForeground(new java.awt.Color(204, 204, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Estudiante", "Libro", "Fecha de prestamo", "Fecha Acutal"
@@ -96,13 +102,20 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(10, 10, 640, 403);
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/regresar.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(310, 440, 41, 16);
+        jLabel2.setBounds(290, 410, 80, 60);
 
-        jLabel3.setText("jLabel3");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(310, 470, 41, 16);
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 51, 153));
+        jLabel5.setText("Regresar");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(290, 470, 90, 24);
 
         contenedor.add(jPanel1);
         jPanel1.setBounds(0, 50, 680, 510);
@@ -112,8 +125,66 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        this.dispose();
+        FormPrincipal f = new FormPrincipal();
+        f.setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    public static void addDatatoJTable(Prestamo prestamo, DefaultTableModel model) {
+
+        try {
+            Object rowData[] = new Object[4];
+
+            rowData[0] = prestamo.getCarnetEstudiante();
+            rowData[1] = ObjectRead.readLibro(prestamo.getCodigoLibro()).getTitulo();
+            rowData[2] = prestamo.getFechaPrestamo();
+            rowData[3] = todayDate;
+            model.addRow(rowData);
+        } catch (IOException ex) {
+            Logger.getLogger(FormPrestamoLibros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+//limpiamos la tabla de cualquier dato no deseado
+    public static void eliminar(DefaultTableModel tb) {
+        int a = tb.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tb.removeRow(tb.getRowCount() - 1);
+        }
+    }
+
     private static void llenarTabla() {
 
+        eliminar(model);
+        try {
+
+            File f = new File("DB\\prestamos");
+//recorremos la carpeta prestamo para obtener los carnet de los estudiantes
+            for (String s : f.list()) {
+                File fi = new File("DB\\prestamos\\" + s);
+                //recorremos cada estudiante
+                for (String string : fi.list()) {
+                    //obtenemos el nombre del prestamo sin su extencion
+                    String comm = string.substring(0, string.indexOf("."));
+                    //creamos un objeto prestamo y le asignamos los datos que devuelve el archivo binario
+                    Prestamo p = ObjectRead.readPrestamo(Integer.valueOf(s), comm);
+//creamos dos fechas la fecha de prestamo y la fecha de hoy
+                    LocalDate date = p.getFechaPrestamo();
+                    LocalDate date2 = LocalDate.now();
+                    //obtenemos los dias entre ambas fechas
+                    long days = DAYS.between(date, date2);
+//si se cumple agregamos los datos a la tabla
+                    if (days <= 3) {
+                        addDatatoJTable(p, model);
+                    }
+
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -155,7 +226,7 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
     private javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
