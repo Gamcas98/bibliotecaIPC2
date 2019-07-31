@@ -5,6 +5,8 @@
  */
 package biblio.ui;
 
+import biblio.movimiento.AnimationPanel;
+import javafx.animation.Animation;
 /**
  *
  * @author Gamcas
@@ -16,8 +18,9 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     public FormPrincipal() {
         initComponents();
+        this.setResizable(false);
+        this.setBounds(0, 0, 1000, 700);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
 
     /**
@@ -29,49 +32,402 @@ public class FormPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        JPConteiner = new javax.swing.JPanel();
+        JPRegistrarPres = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        JPRegistrarLib = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        JTRegistrarNomLib = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        JTAutorLib = new javax.swing.JTextField();
+        JTCantCopias = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        JPRegistrarEstu = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        JTNombreEstu = new javax.swing.JTextField();
+        JTCarnet = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        JTCodCarrera = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        JPTitulo = new javax.swing.JPanel();
+        btnTitulo = new javax.swing.JLabel();
+        JPMenu = new javax.swing.JPanel();
+        btnRegistrarPres = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnRegistrarLib = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnRegistrarEstudiante = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        JPInfo = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        JPConteiner.setPreferredSize(new java.awt.Dimension(1000, 700));
+        JPConteiner.setLayout(null);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addContainerGap(94, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(50, 50, 50))
-        );
+        JPRegistrarPres.setBackground(new java.awt.Color(79, 157, 166));
+        JPRegistrarPres.setPreferredSize(new java.awt.Dimension(880, 640));
+        JPRegistrarPres.setLayout(null);
+
+        jLabel5.setText("Seleccione a Estudiante:");
+        JPRegistrarPres.add(jLabel5);
+        jLabel5.setBounds(30, 40, 150, 14);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Carnet", "Nombre", "Carrera"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        JPRegistrarPres.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 60, 410, 100);
+
+        jLabel10.setText("Seleccione el Libro:");
+        JPRegistrarPres.add(jLabel10);
+        jLabel10.setBounds(480, 40, 150, 14);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Codigo", "Nombre", "Cantidad disponible"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        JPRegistrarPres.add(jScrollPane2);
+        jScrollPane2.setBounds(460, 60, 370, 100);
+
+        jLabel11.setText("Registrar fecha actual:");
+        JPRegistrarPres.add(jLabel11);
+        jLabel11.setBounds(30, 200, 140, 14);
+
+        jButton3.setText("Fecha actual");
+        JPRegistrarPres.add(jButton3);
+        jButton3.setBounds(30, 240, 120, 30);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setText("Registrar prestamo del libro");
+        JPRegistrarPres.add(jLabel18);
+        jLabel18.setBounds(280, 300, 180, 30);
+
+        jButton4.setText("Confirmar");
+        JPRegistrarPres.add(jButton4);
+        jButton4.setBounds(310, 350, 120, 30);
+
+        JPConteiner.add(JPRegistrarPres);
+        JPRegistrarPres.setBounds(1000, 60, 880, 640);
+
+        JPRegistrarLib.setBackground(new java.awt.Color(247, 255, 86));
+        JPRegistrarLib.setPreferredSize(new java.awt.Dimension(880, 640));
+        JPRegistrarLib.setLayout(null);
+
+        jLabel13.setText("Nombre del Libro:");
+        JPRegistrarLib.add(jLabel13);
+        jLabel13.setBounds(30, 70, 110, 14);
+
+        JTRegistrarNomLib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTRegistrarNomLibActionPerformed(evt);
+            }
+        });
+        JPRegistrarLib.add(JTRegistrarNomLib);
+        JTRegistrarNomLib.setBounds(30, 100, 240, 30);
+
+        jLabel12.setText("Codigo del libro:");
+        JPRegistrarLib.add(jLabel12);
+        jLabel12.setBounds(400, 70, 100, 14);
+
+        jLabel14.setText("Ejem. AAA-000");
+        JPRegistrarLib.add(jLabel14);
+        jLabel14.setBounds(610, 70, 100, 14);
+
+        jTextField1.setText("jTextField1");
+        JPRegistrarLib.add(jTextField1);
+        jTextField1.setBounds(400, 100, 150, 30);
+
+        jLabel15.setText("Autor del libro:");
+        JPRegistrarLib.add(jLabel15);
+        jLabel15.setBounds(30, 180, 110, 14);
+
+        jLabel16.setText("Cantidad de copias:");
+        JPRegistrarLib.add(jLabel16);
+        jLabel16.setBounds(400, 180, 130, 14);
+
+        JTAutorLib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTAutorLibActionPerformed(evt);
+            }
+        });
+        JPRegistrarLib.add(JTAutorLib);
+        JTAutorLib.setBounds(30, 210, 240, 30);
+        JPRegistrarLib.add(JTCantCopias);
+        JTCantCopias.setBounds(400, 210, 150, 30);
+
+        jButton1.setText("Fecha actual");
+        JPRegistrarLib.add(jButton1);
+        jButton1.setBounds(30, 330, 110, 23);
+
+        jLabel17.setText("Registar fecha actual:");
+        JPRegistrarLib.add(jLabel17);
+        jLabel17.setBounds(30, 290, 120, 14);
+
+        jButton2.setText("Registrar");
+        JPRegistrarLib.add(jButton2);
+        jButton2.setBounds(290, 390, 120, 23);
+
+        JPConteiner.add(JPRegistrarLib);
+        JPRegistrarLib.setBounds(1000, 60, 880, 640);
+
+        JPRegistrarEstu.setBackground(new java.awt.Color(222, 222, 222));
+        JPRegistrarEstu.setPreferredSize(new java.awt.Dimension(880, 640));
+        JPRegistrarEstu.setLayout(null);
+
+        jLabel19.setText("Nombre del Estudiante:");
+        JPRegistrarEstu.add(jLabel19);
+        jLabel19.setBounds(70, 50, 220, 14);
+
+        jLabel20.setText("Carnet:");
+        JPRegistrarEstu.add(jLabel20);
+        jLabel20.setBounds(550, 50, 70, 14);
+
+        jLabel21.setText("Ejem. 2018*****");
+        JPRegistrarEstu.add(jLabel21);
+        jLabel21.setBounds(660, 50, 110, 14);
+
+        JTNombreEstu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTNombreEstuActionPerformed(evt);
+            }
+        });
+        JPRegistrarEstu.add(JTNombreEstu);
+        JTNombreEstu.setBounds(20, 70, 420, 30);
+
+        JTCarnet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTCarnetActionPerformed(evt);
+            }
+        });
+        JPRegistrarEstu.add(JTCarnet);
+        JTCarnet.setBounds(550, 70, 220, 30);
+
+        jLabel22.setText("Codigo de carrera:");
+        JPRegistrarEstu.add(jLabel22);
+        jLabel22.setBounds(70, 160, 140, 14);
+        JPRegistrarEstu.add(JTCodCarrera);
+        JTCodCarrera.setBounds(80, 190, 70, 30);
+
+        jLabel23.setText("Fecha de Nacimiento:");
+        JPRegistrarEstu.add(jLabel23);
+        jLabel23.setBounds(380, 160, 140, 14);
+
+        jTextField2.setText("Año/Mes/Dia");
+        JPRegistrarEstu.add(jTextField2);
+        jTextField2.setBounds(380, 190, 140, 30);
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton5.setText("Registrar Estudiante");
+        JPRegistrarEstu.add(jButton5);
+        jButton5.setBounds(290, 300, 190, 50);
+
+        JPConteiner.add(JPRegistrarEstu);
+        JPRegistrarEstu.setBounds(1000, 60, 880, 640);
+
+        JPTitulo.setBackground(new java.awt.Color(200, 218, 211));
+        JPTitulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnTitulo.setText("Biblioteca CUNOC");
+        JPTitulo.add(btnTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 340, 40));
+
+        JPConteiner.add(JPTitulo);
+        JPTitulo.setBounds(0, 0, 1500, 60);
+
+        JPMenu.setBackground(new java.awt.Color(79, 157, 166));
+        JPMenu.setPreferredSize(new java.awt.Dimension(112, 766));
+        JPMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnRegistrarPres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/registrar.png"))); // NOI18N
+        btnRegistrarPres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarPresMouseClicked(evt);
+            }
+        });
+        JPMenu.add(btnRegistrarPres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 60, -1));
+
+        jLabel2.setText("Registrar Prestamo");
+        JPMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 77, -1, -1));
+
+        btnRegistrarLib.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/12.png"))); // NOI18N
+        btnRegistrarLib.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarLibMouseClicked(evt);
+            }
+        });
+        JPMenu.add(btnRegistrarLib, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 102, -1, -1));
+
+        jLabel3.setText("Registrar libro");
+        JPMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 163, -1, -1));
+
+        btnRegistrarEstudiante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/estudiante.png"))); // NOI18N
+        btnRegistrarEstudiante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarEstudianteMouseClicked(evt);
+            }
+        });
+        JPMenu.add(btnRegistrarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 188, -1, -1));
+
+        jLabel1.setText("Registar estudiante");
+        JPMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/arch.png"))); // NOI18N
+        JPMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 70, 60));
+
+        jLabel6.setText("Leer archivo");
+        JPMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/reportes.png"))); // NOI18N
+        JPMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+
+        jLabel8.setText("Reportes");
+        JPMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 70, -1));
+        JPMenu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 130, -1));
+        JPMenu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 130, -1));
+        JPMenu.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 130, -1));
+        JPMenu.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, -1));
+
+        jLabel24.setText("R 1");
+        JPMenu.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, -1, -1));
+
+        jLabel25.setText("R 2");
+        JPMenu.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, -1, -1));
+
+        jLabel26.setText("R 3");
+        JPMenu.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
+
+        jLabel27.setText("R 4");
+        JPMenu.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
+
+        jLabel28.setText("R 5");
+        JPMenu.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, -1, -1));
+
+        JPConteiner.add(JPMenu);
+        JPMenu.setBounds(0, 60, 130, 640);
+
+        JPInfo.setPreferredSize(new java.awt.Dimension(880, 640));
+        JPInfo.setLayout(null);
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/portada.jpg"))); // NOI18N
+        JPInfo.add(jLabel9);
+        jLabel9.setBounds(110, 50, 600, 90);
+
+        JPConteiner.add(JPInfo);
+        JPInfo.setBounds(130, 60, 870, 640);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addComponent(JPConteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addComponent(JPConteiner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarPresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPresMouseClicked
+        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarLib);
+        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarPres);
+        btnTitulo.setText("Registrar Prestamo");
+    }//GEN-LAST:event_btnRegistrarPresMouseClicked
+
+    private void btnRegistrarLibMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarLibMouseClicked
+        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarLib); 
+        btnTitulo.setText("Registrar Nuevo Libro");
+    }//GEN-LAST:event_btnRegistrarLibMouseClicked
+
+    private void JTRegistrarNomLibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTRegistrarNomLibActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTRegistrarNomLibActionPerformed
+
+    private void JTAutorLibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTAutorLibActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTAutorLibActionPerformed
+
+    private void btnRegistrarEstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarEstudianteMouseClicked
+        AnimationPanel.jPanelXRight(120, 1000,5 , 5, JPInfo);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120,1000 ,5 , 5, JPRegistrarLib); 
+        AnimationPanel.jPanelXLeft(1000,120 ,5 , 5, JPRegistrarEstu); 
+        btnTitulo.setText("Registrar Nuevo Estudiante");
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarEstudianteMouseClicked
+
+    private void JTNombreEstuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTNombreEstuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTNombreEstuActionPerformed
+
+    private void JTCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTCarnetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTCarnetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,14 +458,74 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormPrincipal().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPConteiner;
+    private javax.swing.JPanel JPInfo;
+    private javax.swing.JPanel JPMenu;
+    private javax.swing.JPanel JPRegistrarEstu;
+    private javax.swing.JPanel JPRegistrarLib;
+    private javax.swing.JPanel JPRegistrarPres;
+    private javax.swing.JPanel JPTitulo;
+    private javax.swing.JTextField JTAutorLib;
+    private javax.swing.JTextField JTCantCopias;
+    private javax.swing.JTextField JTCarnet;
+    private javax.swing.JTextField JTCodCarrera;
+    private javax.swing.JTextField JTNombreEstu;
+    private javax.swing.JTextField JTRegistrarNomLib;
+    private javax.swing.JLabel btnRegistrarEstudiante;
+    private javax.swing.JLabel btnRegistrarLib;
+    private javax.swing.JLabel btnRegistrarPres;
+    private javax.swing.JLabel btnTitulo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
