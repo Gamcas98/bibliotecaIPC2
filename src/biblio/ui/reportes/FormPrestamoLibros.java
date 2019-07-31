@@ -147,6 +147,7 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
 
     }
 //limpiamos la tabla de cualquier dato no deseado
+
     public static void eliminar(DefaultTableModel tb) {
         int a = tb.getRowCount() - 1;
         for (int i = a; i >= 0; i--) {
@@ -175,8 +176,10 @@ public class FormPrestamoLibros extends javax.swing.JFrame {
                     //obtenemos los dias entre ambas fechas
                     long days = DAYS.between(date, date2);
 //si se cumple agregamos los datos a la tabla
-                    if (days <= 3) {
-                        addDatatoJTable(p, model);
+                    if (p.getFechaDevolucion() == null) {
+                        if (days <= 3) {
+                            addDatatoJTable(p, model);
+                        }
                     }
 
                 }

@@ -16,12 +16,11 @@ import java.io.ObjectOutputStream;
  * @author Gamcas
  */
 public class ObjectWrite {
-    
+
     /*Esta clase contiene metodos boolenos para persistir los archivos
     *son similares por que no encontre otra forma de hacerlos
     *osi osi
-    */
-
+     */
     public static boolean saveEstudent(Estudiante estudiante) {
 
         File file = new File("DB/estudiantes/" + estudiante.getCarnet() + ".est");
@@ -50,15 +49,33 @@ public class ObjectWrite {
         return true;
     }
 
- 
-    public static boolean savePrestamo(Prestamo prestamo, int carnet, String libro,int numero) {
+    public static boolean savePrestamo(Prestamo prestamo, int carnet, String libro, int numero) {
 
         File file = new File("DB/prestamos/" + carnet);
         if (!file.exists()) {
             file.mkdir();
         }
 
-        File childFile = new File("DB/prestamos/" + carnet + "/" + libro +"-"+numero+ ".pres");
+        File childFile = new File("DB/prestamos/" + carnet + "/" + libro + "-" + numero + ".pres");
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(childFile);
+                ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);) {
+            outputStream.writeObject(prestamo);
+        } catch (IOException e) {
+            System.out.println("Error de conexion con el archivo");
+        }
+
+        return true;
+    }
+
+    public static boolean savePrestamoI(Prestamo prestamo, int carnet, String libro) {
+
+        File file = new File("DB/prestamos/" + carnet);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        File childFile = new File("DB/prestamos/" + carnet + "/" + libro +".pres");
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(childFile);
                 ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);) {

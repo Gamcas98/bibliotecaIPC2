@@ -6,14 +6,34 @@
 package biblio.ui;
 
 import AppPackage.AnimationClass;
+import biblio.Files.ObjectRead;
+import biblio.Files.ObjectWrite;
+import biblio.Files.Verificaciones;
+import biblio.Models.Estudiante;
+import biblio.Models.Libro;
+import biblio.Models.Prestamo;
 import biblio.movimiento.AnimationPanel;
 import biblio.ui.reportes.*;
+import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultText;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Gamcas
  */
 public class FormPrincipal extends javax.swing.JFrame {
+
+    private static DefaultTableModel model;
 
     /**
      * Creates new form FormPrincipal
@@ -23,6 +43,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.setResizable(false);
         this.setBounds(0, 0, 1000, 720);
         this.setLocationRelativeTo(null);
+        calendario.setDateFormatString("yyyy-MM-dd");
+        model = (DefaultTableModel) jTableDevolverP.getModel();
+
     }
 
     /**
@@ -51,14 +74,28 @@ public class FormPrincipal extends javax.swing.JFrame {
         JTRegistrarNomLib = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jCodigoLibro = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         JTAutorLib = new javax.swing.JTextField();
         JTCantCopias = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        JTAutorLib1 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        JPDevolLib = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableDevolverP = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        txtDeuda = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        txtDeudaMora = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        btnCalcular = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
+        calendario = new com.toedter.calendar.JDateChooser();
         JPRegistrarEstu = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -67,8 +104,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         JTCarnet = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         JTCodCarrera = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         JPTitulo = new javax.swing.JPanel();
         btnTitulo = new javax.swing.JLabel();
@@ -110,7 +145,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel5.setText("Seleccione a Estudiante:");
         JPRegistrarPres.add(jLabel5);
-        jLabel5.setBounds(30, 40, 150, 16);
+        jLabel5.setBounds(30, 40, 150, 14);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,7 +165,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel10.setText("Seleccione el Libro:");
         JPRegistrarPres.add(jLabel10);
-        jLabel10.setBounds(480, 40, 150, 16);
+        jLabel10.setBounds(480, 40, 150, 14);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,7 +185,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Registrar fecha actual:");
         JPRegistrarPres.add(jLabel11);
-        jLabel11.setBounds(30, 200, 140, 16);
+        jLabel11.setBounds(30, 200, 140, 14);
 
         jButton3.setText("Fecha actual");
         JPRegistrarPres.add(jButton3);
@@ -174,7 +209,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel13.setText("Nombre del Libro:");
         JPRegistrarLib.add(jLabel13);
-        jLabel13.setBounds(30, 70, 110, 16);
+        jLabel13.setBounds(30, 70, 110, 14);
 
         JTRegistrarNomLib.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,23 +221,27 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel12.setText("Codigo del libro:");
         JPRegistrarLib.add(jLabel12);
-        jLabel12.setBounds(400, 70, 100, 16);
+        jLabel12.setBounds(400, 70, 100, 14);
 
         jLabel14.setText("Ejem. AAA-000");
         JPRegistrarLib.add(jLabel14);
-        jLabel14.setBounds(610, 70, 100, 16);
+        jLabel14.setBounds(610, 70, 100, 14);
 
-        jTextField1.setText("jTextField1");
-        JPRegistrarLib.add(jTextField1);
-        jTextField1.setBounds(400, 100, 150, 30);
+        jCodigoLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCodigoLibroActionPerformed(evt);
+            }
+        });
+        JPRegistrarLib.add(jCodigoLibro);
+        jCodigoLibro.setBounds(400, 100, 150, 30);
 
         jLabel15.setText("Autor del libro:");
         JPRegistrarLib.add(jLabel15);
-        jLabel15.setBounds(30, 180, 110, 16);
+        jLabel15.setBounds(30, 180, 110, 14);
 
         jLabel16.setText("Cantidad de copias:");
         JPRegistrarLib.add(jLabel16);
-        jLabel16.setBounds(400, 180, 130, 16);
+        jLabel16.setBounds(400, 180, 130, 14);
 
         JTAutorLib.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,20 +253,109 @@ public class FormPrincipal extends javax.swing.JFrame {
         JPRegistrarLib.add(JTCantCopias);
         JTCantCopias.setBounds(400, 210, 150, 30);
 
-        jButton1.setText("Fecha actual");
-        JPRegistrarLib.add(jButton1);
-        jButton1.setBounds(30, 330, 110, 32);
-
-        jLabel17.setText("Registar fecha actual:");
-        JPRegistrarLib.add(jLabel17);
-        jLabel17.setBounds(30, 290, 120, 16);
-
         jButton2.setText("Registrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         JPRegistrarLib.add(jButton2);
-        jButton2.setBounds(290, 390, 120, 32);
+        jButton2.setBounds(290, 390, 120, 50);
+
+        JTAutorLib1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTAutorLib1ActionPerformed(evt);
+            }
+        });
+        JPRegistrarLib.add(JTAutorLib1);
+        JTAutorLib1.setBounds(30, 290, 240, 30);
+
+        jLabel17.setText("Editorial");
+        JPRegistrarLib.add(jLabel17);
+        jLabel17.setBounds(30, 260, 110, 14);
 
         JPConteiner.add(JPRegistrarLib);
         JPRegistrarLib.setBounds(1000, 60, 880, 640);
+
+        JPDevolLib.setBackground(new java.awt.Color(215, 209, 201));
+        JPDevolLib.setPreferredSize(new java.awt.Dimension(880, 640));
+        JPDevolLib.setLayout(null);
+
+        jTableDevolverP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Carnet", "Libro", "Fecha de prestamo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTableDevolverP);
+
+        JPDevolLib.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 60, 452, 310);
+
+        jLabel25.setText("<Html>Seleccione el libro a devolver:");
+        JPDevolLib.add(jLabel25);
+        jLabel25.setBounds(140, 20, 160, 30);
+
+        jLabel26.setText("Seleccione la fecha:");
+        JPDevolLib.add(jLabel26);
+        jLabel26.setBounds(610, 40, 130, 30);
+
+        txtDeuda.setEnabled(false);
+        JPDevolLib.add(txtDeuda);
+        txtDeuda.setBounds(540, 220, 100, 20);
+
+        jLabel27.setText("Deuda:");
+        JPDevolLib.add(jLabel27);
+        jLabel27.setBounds(570, 200, 50, 14);
+
+        txtDeudaMora.setEnabled(false);
+        JPDevolLib.add(txtDeudaMora);
+        txtDeudaMora.setBounds(670, 220, 100, 20);
+
+        jLabel28.setText("Deuda por mora:");
+        JPDevolLib.add(jLabel28);
+        jLabel28.setBounds(680, 200, 100, 14);
+
+        txtTotal.setEnabled(false);
+        JPDevolLib.add(txtTotal);
+        txtTotal.setBounds(620, 280, 100, 20);
+
+        jLabel29.setText("Total a pagar:");
+        JPDevolLib.add(jLabel29);
+        jLabel29.setBounds(630, 260, 100, 14);
+
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+        JPDevolLib.add(btnCalcular);
+        btnCalcular.setBounds(600, 320, 130, 40);
+
+        btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+        JPDevolLib.add(btnPagar);
+        btnPagar.setBounds(390, 450, 130, 40);
+        JPDevolLib.add(calendario);
+        calendario.setBounds(570, 100, 180, 70);
+
+        JPConteiner.add(JPDevolLib);
+        JPDevolLib.setBounds(1000, 60, 880, 640);
 
         JPRegistrarEstu.setBackground(new java.awt.Color(222, 222, 222));
         JPRegistrarEstu.setPreferredSize(new java.awt.Dimension(880, 640));
@@ -235,15 +363,15 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel19.setText("Nombre del Estudiante:");
         JPRegistrarEstu.add(jLabel19);
-        jLabel19.setBounds(70, 50, 220, 16);
+        jLabel19.setBounds(70, 50, 220, 14);
 
         jLabel20.setText("Carnet:");
         JPRegistrarEstu.add(jLabel20);
-        jLabel20.setBounds(550, 50, 70, 16);
+        jLabel20.setBounds(550, 50, 70, 14);
 
         jLabel21.setText("Ejem. 2018*****");
         JPRegistrarEstu.add(jLabel21);
-        jLabel21.setBounds(660, 50, 110, 16);
+        jLabel21.setBounds(660, 50, 110, 14);
 
         JTNombreEstu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,20 +391,17 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Codigo de carrera:");
         JPRegistrarEstu.add(jLabel22);
-        jLabel22.setBounds(70, 160, 140, 16);
+        jLabel22.setBounds(70, 160, 140, 14);
         JPRegistrarEstu.add(JTCodCarrera);
         JTCodCarrera.setBounds(80, 190, 70, 30);
 
-        jLabel23.setText("Fecha de Nacimiento:");
-        JPRegistrarEstu.add(jLabel23);
-        jLabel23.setBounds(380, 160, 140, 16);
-
-        jTextField2.setText("Año/Mes/Dia");
-        JPRegistrarEstu.add(jTextField2);
-        jTextField2.setBounds(380, 190, 140, 30);
-
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton5.setText("Registrar Estudiante");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         JPRegistrarEstu.add(jButton5);
         jButton5.setBounds(290, 300, 190, 50);
 
@@ -432,6 +557,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         r5.setForeground(new java.awt.Color(153, 153, 255));
         r5.setText("<Html>Libros actualmente prestados");
         r5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        r5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                r5MouseClicked(evt);
+            }
+        });
         JPInfo.add(r5);
         r5.setBounds(-200, 570, 90, 50);
 
@@ -460,6 +590,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarEstu);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarLib);
+        AnimationPanel.jPanelXRight(1000, 120, 5, 5, JPDevolLib);
         AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarPres);
         btnTitulo.setText("Registrar Prestamo");
     }//GEN-LAST:event_btnRegistrarPresMouseClicked
@@ -468,6 +599,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarPres);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXRight(1000, 120, 5, 5, JPDevolLib);
         AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarLib);
         btnTitulo.setText("Registrar Nuevo Libro");
     }//GEN-LAST:event_btnRegistrarLibMouseClicked
@@ -484,6 +616,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarPres);
         AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarLib);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPDevolLib);
         AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPRegistrarEstu);
         btnTitulo.setText("Registrar Nuevo Estudiante");
 
@@ -507,14 +640,19 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-
         moverDerecha();
         moverIzq();
-
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnRegistrarPres1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPres1MouseClicked
-        // TODO add your handling code here:
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPInfo);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarPres);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarLib);
+        AnimationPanel.jPanelXRight(120, 1000, 5, 5, JPRegistrarEstu);
+        AnimationPanel.jPanelXLeft(1000, 120, 5, 5, JPDevolLib);
+        btnTitulo.setText("Devolver Libro");
+        readTablaReturn();
+        btnPagar.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarPres1MouseClicked
 
     private void r1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r1MouseClicked
@@ -534,6 +672,136 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.dispose();
         f.setVisible(true);
     }//GEN-LAST:event_r4MouseClicked
+
+    private void jCodigoLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCodigoLibroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCodigoLibroActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        calculandoDeuda();
+        btnPagar.setEnabled(true);
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        pagarPrestamo();
+        txtTotal.setText("");
+        txtDeuda.setText("");
+        txtDeudaMora.setText("");
+        btnPagar.setEnabled(false);
+        readTablaReturn();
+    }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void r5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_r5MouseClicked
+        FormPrestados f = new FormPrestados();
+        this.dispose();
+        f.setVisible(true);
+
+    }//GEN-LAST:event_r5MouseClicked
+
+    private void JTAutorLib1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTAutorLib1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTAutorLib1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Libro l = new Libro();
+        try {
+            if (!(JTCantCopias.getText() == null) && Integer.valueOf(JTCantCopias.getText()) >= 0) {
+                if (JTRegistrarNomLib.getText() != null) {
+                    if (jCodigoLibro.getText() != null) {
+                        if (Verificaciones.verficarCodigoLibro(jCodigoLibro.getText())
+                                && !Verificaciones.verificarExistenciaLibro(jCodigoLibro.getText())) {
+                            l.setTitulo(JTRegistrarNomLib.getText());
+                            l.setCantidadCopias(Integer.valueOf(JTCantCopias.getText()));
+                            l.setCodigo(jCodigoLibro.getText());
+                            l.setEditorial(JTAutorLib1.getText());
+                            l.setAutor(JTAutorLib.getText());
+
+                            ObjectWrite.saveLibro(l);
+                            JOptionPane.showMessageDialog(null, "exito");
+
+                            JTAutorLib.setText("");
+                            JTAutorLib1.setText("");
+                            JTCantCopias.setText("");
+                            jCodigoLibro.setText("");
+                            JTRegistrarNomLib.setText("");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "ya existe");
+                        }
+                    }
+                }
+
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "error");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Estudiante e = new Estudiante();
+        if (JTNombreEstu.getText() != null) {
+            try {
+                if (Integer.valueOf(JTCarnet.getText()) > 0 && JTCarnet.getText() != null) {
+                    if (Integer.valueOf(JTCodCarrera.getText()) > 0 && Integer.valueOf(JTCodCarrera.getText()) < 6
+                            && JTCodCarrera.getText() != null) {
+                        if (!Verificaciones.verificarExistenciaEstudiante(Integer.valueOf(JTCarnet.getText()))) {
+
+                            e.setCarnet(Integer.valueOf(JTCarnet.getText()));
+                            e.setCarrera(Integer.valueOf(JTCodCarrera.getText()));
+                            e.setLibrosPrestados(0);
+                            e.setNombre(JTNombreEstu.getText());
+
+                            ObjectWrite.saveEstudent(e);
+                            JTCarnet.setText("");
+                            JTCodCarrera.setText("");
+                            JTNombreEstu.setText("");
+                            JOptionPane.showMessageDialog(null, "exito");
+                            
+                            
+                        }else{
+                            JOptionPane.showMessageDialog(null, "ya existe");
+                        }
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "error");
+            }
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private static void pagarPrestamo() {
+
+        String carnet = String.valueOf(jTableDevolverP
+                .getValueAt(jTableDevolverP.getSelectedRow(), 0));
+
+        String fechaPrestamo = String.valueOf(jTableDevolverP
+                .getValueAt(jTableDevolverP.getSelectedRow(), 2));
+
+        LocalDate date = LocalDate.parse(fechaPrestamo);
+        LocalDate devol = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        File fi = new File("DB\\prestamos\\" + carnet);
+
+        for (String ss : fi.list()) {
+
+            try {
+                Prestamo p = ObjectRead.readPrestamo(Integer.valueOf(carnet), ss.substring(0, ss.indexOf(".")));
+
+                if (p.getFechaPrestamo().compareTo(date) == date.compareTo(p.getFechaPrestamo())) {
+
+                    p.setCuotaMora(Integer.valueOf(txtDeuda.getText()));
+                    p.setCuotaMora(Integer.valueOf(txtDeudaMora.getText()));
+                    p.setFechaDevolucion(devol);
+                    System.out.println(p.getFechaDevolucion());
+                    ObjectWrite.savePrestamoI(p, Integer.valueOf(carnet), ss.substring(0, ss.indexOf(".")));
+                }
+
+            } catch (IOException ex) {
+            }
+
+        }
+
+    }
 
     private void moverDerecha() {
         AnimationClass a = new AnimationClass();
@@ -555,6 +823,90 @@ public class FormPrincipal extends javax.swing.JFrame {
         a.jLabelXLeft(300, -200, 5, 5, r6);
     }
 
+    private static void calculandoDeuda() {
+
+        if (jTableDevolverP.getSelectedRow() >= 0) {
+            String fechaPrestamo = String.valueOf(jTableDevolverP
+                    .getValueAt(jTableDevolverP.getSelectedRow(), 2));
+
+            LocalDate date = LocalDate.parse(fechaPrestamo);
+            LocalDate date2 = calendario.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            //obtenemos los dias entre ambas fechas
+            long days = DAYS.between(date, date2) + 1;
+            if (days < 0) {
+                JOptionPane.showMessageDialog(null, "No puede poner una fecha anterior a la del prestamo");
+            } else if (days < 4) {
+                long cuota = days * 5;
+                txtDeuda.setText(String.valueOf(cuota));
+                txtDeudaMora.setText(String.valueOf(0));
+                txtTotal.setText(String.valueOf(cuota));
+
+            } else if (days > 3) {
+                long cuotaMora = (days - 3) * 10;
+
+                long total = 15 + cuotaMora;
+                long cuota = total - cuotaMora;
+                txtDeuda.setText(String.valueOf(cuota));
+                txtDeudaMora.setText(String.valueOf(cuotaMora));
+                txtTotal.setText(String.valueOf(total));
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un libro");
+        }
+
+    }
+
+    public static void eliminar(DefaultTableModel tb) {
+        int a = tb.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tb.removeRow(tb.getRowCount() - 1);
+        }
+    }
+
+    private static void readTablaReturn() {
+        eliminar(model);
+        File f = new File("DB\\prestamos");
+
+        for (String s : f.list()) {
+
+            File fi = new File("DB\\prestamos\\" + s);
+
+            for (String ss : fi.list()) {
+
+                try {
+                    Prestamo p = ObjectRead.readPrestamo(Integer.valueOf(s), ss.substring(0, ss.indexOf(".")));
+
+                    if (p.getFechaDevolucion() == null) {
+
+                        llenarTablaPrestamos(p, model);
+                    }
+
+                } catch (IOException ex) {
+                }
+
+            }
+
+        }
+    }
+
+    private static void llenarTablaPrestamos(Prestamo prestamo, DefaultTableModel model) {
+
+        try {
+            Object rowData[] = new Object[3];
+
+            rowData[0] = prestamo.getCarnetEstudiante();
+            rowData[1] = ObjectRead.readLibro(prestamo.getCodigoLibro()).getTitulo();
+            rowData[2] = prestamo.getFechaPrestamo();
+            model.addRow(rowData);
+
+        } catch (IOException ex) {
+            Logger.getLogger(FormPrestamosEstudiantes.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -569,16 +921,24 @@ public class FormPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -594,6 +954,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPConteiner;
+    private javax.swing.JPanel JPDevolLib;
     private javax.swing.JPanel JPInfo;
     private javax.swing.JPanel JPMenu;
     private javax.swing.JPanel JPRegistrarEstu;
@@ -601,21 +962,25 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel JPRegistrarPres;
     private javax.swing.JPanel JPTitulo;
     private javax.swing.JTextField JTAutorLib;
+    private javax.swing.JTextField JTAutorLib1;
     private javax.swing.JTextField JTCantCopias;
     private javax.swing.JTextField JTCarnet;
     private javax.swing.JTextField JTCodCarrera;
     private javax.swing.JTextField JTNombreEstu;
     private javax.swing.JTextField JTRegistrarNomLib;
+    private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JLabel btnRegistrarEstudiante;
     private javax.swing.JLabel btnRegistrarLib;
     private javax.swing.JLabel btnRegistrarPres;
     private javax.swing.JLabel btnRegistrarPres1;
     private javax.swing.JLabel btnTitulo;
-    private javax.swing.JButton jButton1;
+    private static com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JTextField jCodigoLibro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -631,8 +996,12 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -642,6 +1011,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -649,13 +1019,15 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private static javax.swing.JTable jTableDevolverP;
     private javax.swing.JLabel r1;
     private javax.swing.JLabel r2;
     private javax.swing.JLabel r3;
     private javax.swing.JLabel r4;
     private javax.swing.JLabel r5;
     private javax.swing.JLabel r6;
+    private static javax.swing.JTextField txtDeuda;
+    private static javax.swing.JTextField txtDeudaMora;
+    private static javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

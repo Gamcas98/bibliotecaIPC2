@@ -8,6 +8,8 @@ package biblio.ui.reportes;
 import biblio.Files.ObjectRead;
 import biblio.Models.Prestamo;
 import biblio.ui.FormPrincipal;
+import static biblio.ui.reportes.FormPrestamoLibros.addDatatoJTable;
+import static biblio.ui.reportes.FormPrestamoLibros.eliminar;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Gamcas
  */
-public class FormLibroMorosos extends javax.swing.JFrame {
+public class FormPrestados extends javax.swing.JFrame {
 
     private static LocalDate todayDate = LocalDate.now();
     private static DefaultTableModel model;
@@ -28,13 +30,13 @@ public class FormLibroMorosos extends javax.swing.JFrame {
     /**
      * Creates new form FormPrestamoLibros
      */
-    public FormLibroMorosos() {
+    public FormPrestados() {
         initComponents();
         this.contenedor.setSize(650, 550);
         this.setSize(660, 580);
         this.setLocationRelativeTo(null);
         model = (DefaultTableModel) jTable1.getModel();
-        llenarTabla();
+        llenarEstudiante();
 
     }
 
@@ -55,6 +57,9 @@ public class FormLibroMorosos extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cmbEst = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -68,9 +73,9 @@ public class FormLibroMorosos extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(204, 204, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("Prestamos con Mora");
+        jLabel1.setText("Prestamos por devolver:");
         titulo.add(jLabel1);
-        jLabel1.setBounds(240, 10, 189, 30);
+        jLabel1.setBounds(180, 10, 330, 30);
 
         contenedor.add(titulo);
         titulo.setBounds(0, 0, 680, 50);
@@ -86,7 +91,7 @@ public class FormLibroMorosos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Estudiante", "Libro", "Fecha de prestamo", "Fecha Acutal"
+                "Carnet", "Estudiante", "Libro", "Fecha de prestamo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -98,9 +103,12 @@ public class FormLibroMorosos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 640, 403);
+        jScrollPane1.setBounds(10, 110, 640, 220);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblio/images/regresar.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,6 +125,25 @@ public class FormLibroMorosos extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(290, 470, 90, 24);
 
+        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 3, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 255));
+        jLabel3.setText("Seleccione un estudiante:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(220, 10, 240, 30);
+
+        cmbEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:" }));
+        jPanel1.add(cmbEst);
+        cmbEst.setBounds(200, 40, 150, 40);
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(360, 40, 80, 40);
+
         contenedor.add(jPanel1);
         jPanel1.setBounds(0, 50, 680, 510);
 
@@ -131,18 +158,23 @@ public class FormLibroMorosos extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        eliminar(model);
+        llenarTab();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void addDatatoJTable(Prestamo prestamo, DefaultTableModel model) {
 
         try {
             Object rowData[] = new Object[4];
 
             rowData[0] = prestamo.getCarnetEstudiante();
-            rowData[1] = ObjectRead.readLibro(prestamo.getCodigoLibro()).getTitulo();
-            rowData[2] = prestamo.getFechaPrestamo();
-            rowData[3] = todayDate;
+            rowData[1] = ObjectRead.readEstudiante(prestamo.getCarnetEstudiante()).getNombre();
+            rowData[2] = ObjectRead.readLibro(prestamo.getCodigoLibro()).getTitulo();
+            rowData[3] = prestamo.getFechaPrestamo();
             model.addRow(rowData);
         } catch (IOException ex) {
-            Logger.getLogger(FormLibroMorosos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormPrestados.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -154,39 +186,36 @@ public class FormLibroMorosos extends javax.swing.JFrame {
             tb.removeRow(tb.getRowCount() - 1);
         }
     }
+//llenamos nuestro combo box con los carnets que tienen prestamos
 
-    private static void llenarTabla() {
+    private static void llenarEstudiante() {
 
-        eliminar(model);
-        try {
+        File f = new File("DB\\prestamos");
 
-            File f = new File("DB\\prestamos");
-//recorremos la carpeta prestamo para obtener los carnet de los estudiantes
+        for (String s : f.list()) {
+            cmbEst.addItem(s);
+
+        }
+    }
+//llenamos nuestra tabla con los datos del estudiante seleccionado en el combo box
+
+    private static void llenarTab() {
+        if (!(cmbEst.getSelectedIndex() == 0)) {
+
+            File f = new File("DB\\prestamos\\" + cmbEst.getSelectedItem());
             for (String s : f.list()) {
-                File fi = new File("DB\\prestamos\\" + s);
-                //recorremos cada estudiante
-                for (String string : fi.list()) {
-                    //obtenemos el nombre del prestamo sin su extencion
-                    String comm = string.substring(0, string.indexOf("."));
-                    //creamos un objeto prestamo y le asignamos los datos que devuelve el archivo binario
-                    Prestamo p = ObjectRead.readPrestamo(Integer.valueOf(s), comm);
-//creamos dos fechas la fecha de prestamo y la fecha de hoy
-                    LocalDate date = p.getFechaPrestamo();
-                    LocalDate date2 = LocalDate.now();
-                    //obtenemos los dias entre ambas fechas
-                    long days = DAYS.between(date, date2);
-                    if (p.getFechaDevolucion() == null) {
-//si se cumple agregamos los datos a la tabla
-                        if (days > 3) {
-                            addDatatoJTable(p, model);
-                        }
 
+                String comm = s.substring(0, s.indexOf("."));
+
+                try {
+                    Prestamo p = ObjectRead.readPrestamo(Integer.valueOf((String) cmbEst.getSelectedItem()), comm);
+                    if (p.getFechaDevolucion()==null) {
+                        addDatatoJTable(p, model);
                     }
+                } catch (IOException ex) {
+                    Logger.getLogger(FormPrestados.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -207,29 +236,38 @@ public class FormLibroMorosos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLibroMorosos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrestados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLibroMorosos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrestados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLibroMorosos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrestados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLibroMorosos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPrestados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLibroMorosos().setVisible(true);
+                new FormPrestados().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JComboBox<String> cmbEst;
     private javax.swing.JPanel contenedor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
